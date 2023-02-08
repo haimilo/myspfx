@@ -8,6 +8,8 @@ import { getSP } from '../../../pnpjsConfig';
 // import styles from './Faq.module.scss';
 import { IFaqProps } from './IFaqProps';
 import { Accordion } from "@pnp/spfx-controls-react/lib/Accordion";
+import { Placeholder } from "@pnp/spfx-controls-react/lib/Placeholder";
+import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
 
 const Faq = (props: IFaqProps) => {
 
@@ -105,27 +107,40 @@ const Faq = (props: IFaqProps) => {
     }
   }, [props]);
 
-
   return (
     <>
       <h1>Hello World!</h1>
       <pre>
         {JSON.stringify(faqItems, null, 2)}
       </pre>
+      <div>
+        <WebPartTitle displayMode={props.displayMode}
+          title={props.title}
+          updateProperty={props.updateProperty} />
+      </div>
       {
-        faqItems.map((item: IFAQ, index: number) => (
-          <Accordion
-            title={item.Title}
-            defaultCollapsed={true}
-            key={index}
-            className={"itemCell"}
-          >
-            <div className={"itemContent"}>
-              <h3 className={"itemLetter"}>{item.Letter}</h3>
-              <p className={"itemBody"}>{item.Body}</p>
-            </div>
-          </Accordion>
-        ))
+        props.listGuild ?
+          faqItems.map((item: IFAQ, index: number) => (
+            <Accordion
+              title={item.Title}
+              defaultCollapsed={true}
+              key={index}
+              className={"itemCell"}
+            >
+              <div className={"itemContent"}>
+                <h3 className={"itemLetter"}>{item.Letter}</h3>
+                <p className={"itemBody"}>{item.Body}</p>
+              </div>
+            </Accordion>
+          )) :
+          <Placeholder iconName='Edit'
+            iconText='Configure your web part'
+            description='Please configure the web part.'
+            buttonLabel='Configure'
+            onConfigure={
+              () => props.context.propertyPane.open()
+            }
+          />
       }
     </>
   );

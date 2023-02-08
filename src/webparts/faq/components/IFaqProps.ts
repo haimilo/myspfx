@@ -1,3 +1,4 @@
+import { DisplayMode } from "@microsoft/sp-core-library";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 
 export interface IFaqProps {
@@ -8,4 +9,7 @@ export interface IFaqProps {
     userDisplayName: string;
     context: WebPartContext;
     listGuild: string;
+    title: string;
+    displayMode: DisplayMode;
+    updateProperty: (value: string) => void;
 }
