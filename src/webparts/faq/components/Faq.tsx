@@ -21,7 +21,8 @@ const Faq = (props: IFaqProps) => {
   const getFAQItems = async () => {
     // Get items information from SharePoint
     console.log("Context:", _sp);
-    const items = _sp.web.lists.getByTitle(LIST_NAME).items.select().orderBy('Letter', true).orderBy('Title', true);
+    const items = _sp.web.lists.getById(props.listGuild).items.select().orderBy('Letter', true).orderBy('Title', true);
+    // const items = _sp.web.lists.getByTitle(LIST_NAME).items.select().orderBy('Letter', true).orderBy('Title', true);
     //  with the orderBy('Letter', true) and orderBy('Title', true) the items are sorted by Letter and then by Title
     console.log("FAQ Items:", items);
 
@@ -99,8 +100,10 @@ const Faq = (props: IFaqProps) => {
   };
 
   useEffect(() => {
-    getFAQItems();
-  }, []);
+    if (props.listGuild && props.listGuild !== '') {
+      getFAQItems();
+    }
+  }, [props]);
 
 
   return (

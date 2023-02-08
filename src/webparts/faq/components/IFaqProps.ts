@@ -7,4 +7,5 @@ export interface IFaqProps {
     hasTeamsContext: boolean;
     userDisplayName: string;
     context: WebPartContext;
+    listGuild: string;
 }
